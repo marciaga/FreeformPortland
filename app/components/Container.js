@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Panel } from './panel';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,11 +15,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Container = ({ backgroundColor, onPress, children }) => (
-  <View style={[styles.container, { backgroundColor }]}>
-    <TouchableOpacity onPress={onPress}>
-      <Text style={styles.text}>{backgroundColor}</Text>
-    </TouchableOpacity>
-    {children}
-  </View>
+export const Container = ({ backgroundColor, onPress, children, ...rest }) => (
+    <View style={{ flex: 1 }}>
+        <View style={[styles.container, { backgroundColor }]}>
+            <TouchableOpacity onPress={onPress}>
+              <Text style={styles.text}>{backgroundColor}</Text>
+            </TouchableOpacity>
+            {children}
+        </View>
+        <Panel {...rest}>
+            <Text>Sweet Panel tho...</Text>
+        </Panel>
+    </View>
 );

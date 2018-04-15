@@ -19,6 +19,8 @@ export const startApp = async () => {
         const homeIcon = await Icon.getImageSource('home', 30, 'black');
         const questionIcon = await Icon.getImageSource('question', 30, 'black');
         const calendarIcon = await Icon.getImageSource('calendar', 30, 'black');
+        const upIcon = await Icon.getImageSource('caret-up', 30, 'black');
+        const downIcon = await Icon.getImageSource('caret-down', 30, 'black');
 
         Navigation.startTabBasedApp({
             tabs: [
@@ -43,7 +45,11 @@ export const startApp = async () => {
                     // selectedIcon: require('./images/icon2_selected.png'),
                     title: 'About Us'
                 }
-            ]
+            ],
+            passProps: {
+                upIcon,
+                downIcon
+            }
         });
     } catch (e) {
         console.log('OH NO', e);
