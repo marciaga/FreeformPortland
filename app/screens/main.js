@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { connect } from 'react-redux';
 import { Container } from '../components/Container';
 
 export const Home = (props) => (

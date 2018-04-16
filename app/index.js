@@ -1,27 +1,33 @@
-// app/index.js
+import * as React from 'react';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Home } from './screens/main';
-import { About } from './screens/about';
-import { Schedule } from './screens/schedule';
-import { ShowDetail } from './screens/show-detail';
-import { PlaylistDetail } from './screens/playlist-detail';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk'
+import * as reducers from './reducers/index';
+import { setPlayerStatus } from './actions/index';
+import registerScreens from './screens/screens.js';
 
-export const startApp = async () => {
-    try {
-        Navigation.registerComponent('Home', () => Home);
-        Navigation.registerComponent('About', () => About);
-        Navigation.registerComponent('Schedule', () => Schedule);
-        Navigation.registerComponent('ShowDetail', () => ShowDetail);
-        Navigation.registerComponent('PlaylistDetail', () => PlaylistDetail);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const reducer = combineReducers(reducers);
+const store = createStoreWithMiddleware(reducer);
 
-        // iconName, size, color
-        const homeIcon = await Icon.getImageSource('home', 30, 'black');
-        const questionIcon = await Icon.getImageSource('question', 30, 'black');
-        const calendarIcon = await Icon.getImageSource('calendar', 30, 'black');
-        const upIcon = await Icon.getImageSource('caret-up', 30, 'black');
-        const downIcon = await Icon.getImageSource('caret-down', 30, 'black');
+registerScreens(store, Provider);
 
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        store.dispatch(setPlayerStatus(false));
+    }
+
+    startApp = ({
+        homeIcon,
+        calendarIcon,
+        questionIcon,
+        upIcon,
+        downIcon
+    }) => {
         Navigation.startTabBasedApp({
             tabs: [
                 {
@@ -50,8 +56,23 @@ export const startApp = async () => {
                 upIcon,
                 downIcon
             }
-        });
-    } catch (e) {
-        console.log('OH NO', e);
+        })
     }
-};
+
+    async initialize() {
+        // iconName, size, color
+        const homeIcon = await Icon.getImageSource('home', 30, 'black');
+        const questionIcon = await Icon.getImageSource('question', 30, 'black');
+        const calendarIcon = await Icon.getImageSource('calendar', 30, 'black');
+        const upIcon = await Icon.getImageSource('caret-up', 30, 'black');
+        const downIcon = await Icon.getImageSource('caret-down', 30, 'black');
+
+        this.startApp({
+            homeIcon,
+            calendarIcon,
+            questionIcon,
+            upIcon,
+            downIcon
+        });
+    }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Panel } from './panel';
+import Drawer from './drawer';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,16 +16,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Container = ({ backgroundColor, onPress, children, ...rest }) => (
-    <View style={{ flex: 1 }}>
-        <View style={[styles.container, { backgroundColor }]}>
-            <TouchableOpacity onPress={onPress}>
-              <Text style={styles.text}>{backgroundColor}</Text>
-            </TouchableOpacity>
-            {children}
+export const Container = ({ backgroundColor, onPress, children, ...rest }) => {
+    return (
+        <View style={{ flex: 1 }}>
+            <View style={[styles.container, { backgroundColor }]}>
+                <TouchableOpacity onPress={onPress}>
+                  <Text style={styles.text}>{backgroundColor}</Text>
+                </TouchableOpacity>
+                {children}
+            </View>
+            <Drawer {...rest} />
         </View>
-        <Panel {...rest}>
-            <Text>Sweet Panel tho...</Text>
-        </Panel>
-    </View>
-);
+    )
+};

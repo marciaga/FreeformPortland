@@ -1,3 +1,9 @@
-import { startApp } from './app/index';
+import App from './app/index';
 
-startApp();
+const app = new App();
+
+const start = async () => {
+    await app.initialize();
+}
+
+start();

@@ -26,13 +26,12 @@ const navOptions = {
 };
 
 export const Schedule = ({ navigator, ...rest }) => {
+    console.log('SCHEDULE', rest);
     return (
         <Container
+            {...rest}
             backgroundColor="#e5e5e5"
             onPress={() => navigator.push(navOptions)}
-            {...rest}
-        >
-            Schedule Screen
-        </Container>
+        />
     );
 };
