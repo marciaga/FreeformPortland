@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Panel } from './panel';
 import Drawer from './drawer';
 
 const styles = StyleSheet.create({

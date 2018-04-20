@@ -26,7 +26,9 @@ export default class App extends React.Component {
         calendarIcon,
         questionIcon,
         upIcon,
-        downIcon
+        downIcon,
+        playIcon,
+        stopIcon
     }) => {
         Navigation.startTabBasedApp({
             tabs: [
@@ -54,7 +56,9 @@ export default class App extends React.Component {
             ],
             passProps: {
                 upIcon,
-                downIcon
+                downIcon,
+                playIcon,
+                stopIcon
             }
         })
     }
@@ -66,13 +70,17 @@ export default class App extends React.Component {
         const calendarIcon = await Icon.getImageSource('calendar', 30, 'black');
         const upIcon = await Icon.getImageSource('caret-up', 30, 'black');
         const downIcon = await Icon.getImageSource('caret-down', 30, 'black');
+        const playIcon = await Icon.getImageSource('play', 30, 'black');
+        const stopIcon = await Icon.getImageSource('stop', 30, 'black');
 
         this.startApp({
             homeIcon,
             calendarIcon,
             questionIcon,
             upIcon,
-            downIcon
+            downIcon,
+            playIcon,
+            stopIcon
         });
     }
 }
